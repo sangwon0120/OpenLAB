@@ -79,6 +79,7 @@ export default function Home() {
               </h1>
               <p className="text-lg text-navy/70">
                 Light Commitment, Heavy Impact:
+                <br />
                 Degree based to Skill-based Experience
               </p>
               <div className="flex flex-wrap gap-4">
@@ -115,7 +116,7 @@ export default function Home() {
                   </p>
                   <div className="mt-4 flex items-center gap-2 text-xs text-navy/60">
                     <span className="rounded-full bg-accent/10 px-3 py-1 text-accent">
-                      언번들드 태스크
+                      Unbundled Task
                     </span>
                     <span>Python · Pandas</span>
                   </div>
