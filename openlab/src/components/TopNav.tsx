@@ -41,9 +41,23 @@ export default function TopNav() {
             </NavLink>
           ))}
         </nav>
-        <div className="flex items-center gap-3 text-sm text-navy/70">
-          <Sparkles className="h-4 w-4" />
-          Unbundling of Research
+        <div className="flex flex-wrap items-center gap-2 text-sm font-semibold text-navy/70">
+          <Link
+            className="rounded-full border border-navy/20 px-4 py-2 transition hover:border-navy/40"
+            to="/login"
+          >
+            로그인
+          </Link>
+          <Link
+            className="rounded-full bg-accent px-4 py-2 text-white shadow-glow transition hover:-translate-y-0.5 hover:bg-[#1557D6]"
+            to="/signup"
+          >
+            회원가입
+          </Link>
+          <span className="hidden items-center gap-2 text-sm font-medium text-navy/60 md:flex">
+            <Sparkles className="h-4 w-4 text-accent" />
+            Unbundling of Research
+          </span>
         </div>
       </div>
     </div>

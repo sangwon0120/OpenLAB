@@ -1,6 +1,8 @@
 ﻿import { Routes, Route, Outlet } from "react-router-dom";
 import Home from "./pages/Home";
 import Notices from "./pages/Notices";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import TopNav from "./components/TopNav";
 
 function Layout() {
@@ -34,6 +36,8 @@ export default function App() {
       <Route element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="notices" element={<Notices />} />
+        <Route path="login" element={<Login />} />
+        <Route path="signup" element={<Signup />} />
         <Route
           path="post"
           element={
