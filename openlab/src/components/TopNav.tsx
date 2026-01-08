@@ -1,5 +1,5 @@
 ﻿import { NavLink, Link } from "react-router-dom";
-import { GraduationCap, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 const navItems = [
   { label: "공고", to: "/notices" },
