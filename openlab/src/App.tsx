@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Notices from "./pages/Notices";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import MyPage from "./pages/MyPage";
 import TopNav from "./components/TopNav";
 
 function Layout() {
@@ -38,6 +39,7 @@ export default function App() {
         <Route path="notices" element={<Notices />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
+        <Route path="mypage" element={<MyPage />} />
         <Route
           path="post"
           element={
