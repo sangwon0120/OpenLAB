@@ -14,12 +14,9 @@ export default function TopNav() {
   return (
     <div className="bg-white">
       <div className="mx-auto flex max-w-6xl flex-col items-start gap-4 px-6 py-5 md:flex-row md:flex-nowrap md:items-center md:gap-6">
-        <Link className="flex items-center gap-3" to="/">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-navy text-white shadow-glow">
-            <GraduationCap className="h-5 w-5" />
-          </div>
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent">
+        <Link className="flex items-center" to="/">
+          <div className="space-y-1">
+            <p className="text-2xl font-extrabold tracking-[0.1em] text-accent">
               OpenLAB
             </p>
             <p className="flex items-center gap-2 text-xs text-navy/60">
