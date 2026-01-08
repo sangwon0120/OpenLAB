@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+﻿import { useMemo } from "react";
 import {
   BadgeCheck,
   BrainCircuit,
@@ -13,12 +13,14 @@ import {
 const steps = [
   {
     title: "OpenLAB Posting",
-    description: "연구실이 실제 연구 수요에 맞춘 언번들드 마이크로 태스크를 올립니다.",
+    description:
+      "연구실이 실제 연구 프로젝트를 작은 단위로 쪼개 Unbundled Micro Task를 게시합니다.",
     icon: ClipboardList,
   },
   {
     title: "AI Screening",
-    description: "LLM 기반 에이전트가 이력과 스킬을 분석해 빠르게 매칭합니다.",
+    description:
+      "LLM 기반 에이전트가 이력과 스킬을 분석해 빠르게 매칭합니다.",
     icon: BrainCircuit,
   },
   {
@@ -50,10 +52,10 @@ const projects = [
   },
   {
     title: "Smart Campus Energy Forecasting - Data Labeling",
-    lab: "도시 시스템 연구실",
+    lab: "스마트 시스템 연구실",
     duration: "2주",
     skill: "Labeling, Excel",
-    tag: "빠른 시작",
+    tag: "빠른 참여",
   },
 ];
 
@@ -62,11 +64,11 @@ export default function App() {
 
   return (
     <div className="bg-white text-navy">
-      <section className="relative overflow-hidden bg-white">
+      <section id="home" className="relative overflow-hidden bg-white">
         <div className="absolute -top-40 right-0 h-72 w-72 rounded-full bg-accent/20 blur-3xl" />
         <div className="absolute bottom-10 left-0 h-56 w-56 rounded-full bg-navy/10 blur-3xl" />
         <div className="mx-auto flex max-w-6xl flex-col gap-16 px-6 pb-16 pt-10 md:pt-16">
-          <header className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+          <header className="flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
             <div className="flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-navy text-white shadow-glow">
                 <GraduationCap className="h-5 w-5" />
@@ -78,6 +80,38 @@ export default function App() {
                 <p className="text-xs text-navy/60">Light Commitment, Heavy Impact</p>
               </div>
             </div>
+            <nav className="flex flex-wrap items-center gap-2 text-sm font-semibold text-navy/70 md:gap-4">
+              <a
+                className="rounded-full px-4 py-2 transition hover:bg-slate hover:text-navy"
+                href="#projects"
+              >
+                공고
+              </a>
+              <a
+                className="rounded-full px-4 py-2 transition hover:bg-slate hover:text-navy"
+                href="#home"
+              >
+                공고 등록
+              </a>
+              <a
+                className="rounded-full px-4 py-2 transition hover:bg-slate hover:text-navy"
+                href="#how"
+              >
+                참여 가이드
+              </a>
+              <a
+                className="rounded-full px-4 py-2 transition hover:bg-slate hover:text-navy"
+                href="#trust"
+              >
+                커뮤니티
+              </a>
+              <a
+                className="rounded-full px-4 py-2 transition hover:bg-slate hover:text-navy"
+                href="#why"
+              >
+                FAQ
+              </a>
+            </nav>
             <div className="flex items-center gap-3 text-sm text-navy/70">
               <Sparkles className="h-4 w-4" />
               Unbundling of Research
@@ -94,7 +128,7 @@ export default function App() {
                 OpenLAB: Unbundling of Research
               </h1>
               <p className="text-lg text-navy/70">
-                가벼운 참여로 대학원급 연구를 경험하세요. 전공 중심에서 스킬 중심으로
+                가벼운 참여로도 학부 연구를 경험하세요. 전공 중심에서 스킬 중심으로
                 전환합니다.
               </p>
               <div className="flex flex-wrap gap-4">
@@ -102,13 +136,13 @@ export default function App() {
                   프로젝트 찾기
                 </button>
                 <button className="rounded-full border border-navy/20 px-6 py-3 text-sm font-semibold text-navy transition hover:-translate-y-0.5 hover:border-navy/40">
-                  랩 오프닝 등록
+                  랩 공고 등록
                 </button>
               </div>
               <div className="flex flex-wrap gap-6 text-sm text-navy/60">
                 <div className="flex items-center gap-2">
                   <UserSquare2 className="h-4 w-4 text-accent" />
-                  학생도 바로 참여 가능한 마이크로 태스크
+                  학생은 바로 참여 가능한 마이크로 태스크
                 </div>
                 <div className="flex items-center gap-2">
                   <BadgeCheck className="h-4 w-4 text-accent" />
@@ -141,13 +175,17 @@ export default function App() {
                     <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
                       For Students
                     </p>
-                    <p className="mt-2">1년 약정 없이 연구를 경험해 볼 수 있습니다.</p>
+                    <p className="mt-2">
+                      1개월도 안 되는 기간으로 연구를 경험할 수 있습니다.
+                    </p>
                   </div>
                   <div className="rounded-2xl bg-white p-5 text-sm text-navy/70 shadow-sm">
                     <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
                       For Labs
                     </p>
-                    <p className="mt-2">숙련된 기여자를 빠르게 연결합니다.</p>
+                    <p className="mt-2">
+                      검증된 인력을 빠르게 연구에 연결합니다.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -156,7 +194,7 @@ export default function App() {
         </div>
       </section>
 
-      <section className="bg-slate py-16">
+      <section id="why" className="bg-slate py-16">
         <div className="mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-2">
           <div className="space-y-4">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-accent">
@@ -164,13 +202,13 @@ export default function App() {
             </p>
             <h2 className="text-3xl font-semibold">Solve the Dilemma of Choice</h2>
             <p className="text-base text-navy/70">
-              학생은 전공 선택의 불확실성을, 연구실은 반복 업무의 인력 부족을 겪고
-              있습니다.
+              학생은 전공 선택의 불확실성과 연구실은 반복 업무 인력 부족을
+              동시에 겪고 있습니다.
             </p>
             <div className="rounded-2xl border border-navy/10 bg-white p-5 text-sm text-navy/70 shadow-sm">
               <p className="font-semibold text-navy">The Problem</p>
               <p className="mt-2">
-                잘못된 전공 선택에 대한 두려움 + 연구 보조 인력 부족.
+                잘못된 전공 선택의 두려움 + 연구 보조 인력 부족
               </p>
             </div>
           </div>
@@ -181,25 +219,29 @@ export default function App() {
               </p>
               <h3 className="mt-2 text-2xl font-semibold">Micro-projects</h3>
               <p className="mt-2 text-sm text-navy/70">
-                1년 약정 대신 1개월 단위의 데이터 전처리 태스크에 참여해 실제 연구
-                스킬을 더 빠르게 쌓습니다.
+                1년 대신 1개월 단위의 데이터 전처리 태스크에 참여해 실제 연구
+                스킬을 빠르게 습득합니다.
               </p>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="rounded-2xl bg-white p-5 text-sm text-navy/70 shadow-sm">
                 <p className="font-semibold text-navy">Students</p>
-                <p className="mt-2">전공이 아닌 스킬 기준으로 연구실을 탐색합니다.</p>
+                <p className="mt-2">
+                  전공이 아닌 스킬 기준으로 연구를 탐색합니다.
+                </p>
               </div>
               <div className="rounded-2xl bg-white p-5 text-sm text-navy/70 shadow-sm">
                 <p className="font-semibold text-navy">Professors</p>
-                <p className="mt-2">검증된 인력을 기초 태스크에 빠르게 투입합니다.</p>
+                <p className="mt-2">
+                  검증된 인력을 필요한 태스크에 빠르게 투입합니다.
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-white py-16">
+      <section id="how" className="bg-white py-16">
         <div className="mx-auto max-w-6xl px-6">
           <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <div className="space-y-3">
@@ -208,7 +250,7 @@ export default function App() {
               </p>
               <h2 className="text-3xl font-semibold">Four steps to impact</h2>
               <p className="text-base text-navy/70">
-                연구실의 진행 속도를 높이고 학생의 학습을 돕는 간결한 흐름입니다.
+                연구의 진행 속도와 학생의 학습 기회를 동시에 끌어올립니다.
               </p>
             </div>
             <div className="flex items-center gap-3 text-sm text-navy/60">
@@ -239,7 +281,7 @@ export default function App() {
         </div>
       </section>
 
-      <section className="bg-slate py-16">
+      <section id="projects" className="bg-slate py-16">
         <div className="mx-auto max-w-6xl px-6">
           <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div className="space-y-2">
@@ -247,7 +289,7 @@ export default function App() {
                 Featured Projects
               </p>
               <h2 className="text-3xl font-semibold">
-                집중형 마이크로 태스크부터 시작하세요
+                집중형 마이크로 태스크로 시작하세요
               </h2>
             </div>
             <button className="inline-flex items-center gap-2 text-sm font-semibold text-accent">
@@ -271,7 +313,9 @@ export default function App() {
                 <div className="mt-6 space-y-2 text-sm text-navy/60">
                   <div className="flex items-center justify-between">
                     <span>기간</span>
-                    <span className="font-semibold text-navy">{project.duration}</span>
+                    <span className="font-semibold text-navy">
+                      {project.duration}
+                    </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span>기술</span>
@@ -284,7 +328,7 @@ export default function App() {
         </div>
       </section>
 
-      <footer className="bg-navy py-12 text-white">
+      <footer id="trust" className="bg-navy py-12 text-white">
         <div className="mx-auto grid max-w-6xl gap-8 px-6 md:grid-cols-[1.2fr_0.8fr]">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
@@ -299,8 +343,7 @@ export default function App() {
               </div>
             </div>
             <p className="text-sm text-white/70">
-              검증된 인증서와 SaaS 기반 스크리닝으로 누구나 연구에 접근할 수 있도록
-              돕습니다.
+              검증된 인증서와 SaaS 기반 스크리닝으로 연구실과 학생을 연결합니다.
             </p>
           </div>
           <div className="grid gap-4 text-sm text-white/70 sm:grid-cols-2">
@@ -309,7 +352,7 @@ export default function App() {
               <div>
                 <p className="font-semibold text-white">Credentialing</p>
                 <p className="text-white/60">
-                  실제 연구 성과에 연결된 인증서를 제공합니다.
+                  실제 연구 성과를 증명하는 인증서를 제공합니다.
                 </p>
               </div>
             </div>
@@ -318,7 +361,7 @@ export default function App() {
               <div>
                 <p className="font-semibold text-white">SaaS Screening</p>
                 <p className="text-white/60">
-                  AI 기반 스킬 매칭으로 더 빠른 채용을 지원합니다.
+                  AI 기반 스킬 매칭으로 빠른 채용을 지원합니다.
                 </p>
               </div>
             </div>
