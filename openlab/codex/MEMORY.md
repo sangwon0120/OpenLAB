@@ -106,3 +106,15 @@ Assistant: Vercel 빌드 오류 대응으로 `TopNav.tsx`의 미사용 아이콘
 Assistant: 외부 모델 레포를 `model/`로 클론하고 구조 분석 후 `model/pages` 파일명 기능별로 변경.
 Assistant: - `model/pages/*`: page1~6 → `web_crawler_query.py`, `resume_screening.py`, `document_chat.py`, `pdf_reader.py`, `data_analysis_viz.py`, `brand_archive.py`.
 Assistant: - `model_v2/modelAgents.md`: OpenLAB 이력서/공고 구조에 맞는 LLM 스크리닝 프롬프트/스키마로 재작성.
+
+# 2026-01-08 (추가 작업 2)
+Assistant: TopNav 로고/아이콘/정렬 조정 및 Unbundling 텍스트 위치 변경, 별 아이콘만 남기고 크기 확대.
+Assistant: - `openlab/src/components/TopNav.tsx`: 로고 텍스트 대문자 제거, 자간/굵기/크기 조정, 별 아이콘 위치 변경 및 테두리/배경 제거, 로그인/회원가입 정렬 변경.
+Assistant: Home CTA 버튼을 링크로 변경하고 문구 줄바꿈 처리.
+Assistant: - `openlab/src/pages/Home.tsx`: CTA 버튼 `/notices` `/post` 링크화, 슬로건 줄바꿈 적용.
+Assistant: model 레포 클론 및 페이지 파일명 정리.
+Assistant: - `model/`: Git 일반 폴더로 포함되도록 `.git` 제거 및 인덱스 재추가.
+Assistant: - `model/pages/*`: 기능별 파일명으로 리네임 유지.
+Assistant: model_v2 프롬프트를 프로젝트 구조에 맞게 업데이트.
+Assistant: - `model_v2/modelAgents.md`: resume_form/job_posting 기반 스키마/규칙 반영.
+Assistant: MEMORY.md에 작업 내용 추가 요청 수행.
