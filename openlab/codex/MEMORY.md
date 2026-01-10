@@ -87,7 +87,15 @@ Assistant: 1) `cd openlab` 후 `npm run dev`로 확인
 Assistant: 2) 원하는 섹션/UX 디테일을 알려주면 순차적으로 추가
 
 # 2026-01-08
-Assistant: OpenLAB ?? ???? ?? ?? ??? ???? ???????, ?? ?? ???? ????.
-Assistant: - `src/App.tsx`: ???/??-??/?? ??/????/?? ??? ???? ??, ?? ??? ??/?? ?? ??, ??? ???? ??, ??? ??.
-Assistant: - `src/App.tsx`: ???? ???? ???/??/??? ???? ??.
-Assistant: ??? ??? ?? `npm install`? ???? `vite` ?? ??? ????.
+- OpenLAB landing page sections built (Hero / Problem-Solution / How It Works / Featured Projects / Trust Footer).
+- Card-based UI, CTA buttons, icons.
+- Local preview: run `npm install` then `vite`.
+
+# 2026-01-11
+- Base setup includes Vite + React + TS + Tailwind, Manrope font, Navy/Accent/Slate theme (`openlab/index.html`, `openlab/tailwind.config.js`, `openlab/src/style.css`).
+- Routing/layout: TopNav + ProtectedRoute, ComingSoon sections, AuthContext with localStorage login and mode switching (`openlab/src/App.tsx`, `openlab/src/components/TopNav.tsx`, `openlab/src/components/ProtectedRoute.tsx`, `openlab/src/context/AuthContext.tsx`).
+- Core screens: Home, Notices list/status management, NoticeDetail apply/applicant view, Login/Signup, MyPage profile/resume/skills, PostNotice, ResumeScreener (`openlab/src/pages/*`).
+- Data/storage: static notice seed, localStorage notices/applications with dedupe, applicant profile storage (`openlab/src/data/notices.ts`, `openlab/src/lib/openlabStore.ts`).
+- Serverless APIs: notice post/list, application upload + PDF parsing + evaluation, resume-screen Python integration with fallback, OpenAI eval fallback (`openlab/api/*.ts`, `openlab/api/_lib/*.ts`).
+- Build/deploy: Vite build, Vercel rewrite, API proxy config (`openlab/vite.config.ts`, `openlab/vercel.json`, `openlab/tsconfig.json`, `openlab/postcss.config.js`, `openlab/package.json`).
+- Note: some files show mojibake/encoding damage and may need cleanup (NoticeDetail/PostNotice/ResumeScreener, notices data, API files).
