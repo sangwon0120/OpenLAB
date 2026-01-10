@@ -6,6 +6,7 @@ import { savePostedNotice } from "../lib/openlabStore";
 export default function PostNotice() {
   const [title, setTitle] = useState("");
   const [duration, setDuration] = useState("");
+  const [deadline, setDeadline] = useState("");
   const [roles, setRoles] = useState("");
   const [criteria, setCriteria] = useState("");
   const [description, setDescription] = useState("");
@@ -44,7 +45,7 @@ export default function PostNotice() {
       criteria,
       description,
       status: "모집중",
-      deadline: "",
+      deadline,
     };
 
     // Vite(5173) 단독 실행에서도 동작하도록 localStorage에 저장
@@ -98,6 +99,18 @@ export default function PostNotice() {
           </label>
 
           <label className="text-sm font-semibold text-navy">
+            마감일
+            <input
+              type="date"
+              className={`mt-2 w-full rounded-2xl border border-navy/10 px-4 py-3 text-sm outline-none ${
+                deadline ? "text-navy" : "text-navy/50"
+              }`}
+              value={deadline}
+              onChange={(e) => setDeadline(e.target.value)}
+            />
+          </label>
+
+          <label className="text-sm font-semibold text-navy">
             직무
             <input className="mt-2 w-full rounded-2xl border border-navy/10 px-4 py-3 text-sm outline-none" value={roles} onChange={(e) => setRoles(e.target.value)} placeholder="예: 데이터 전처리, 모델 평가" />
           </label>
@@ -117,7 +130,7 @@ export default function PostNotice() {
 
           <div className="flex items-center gap-3">
             <button type="submit" className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-2 text-sm font-semibold text-white hover:bg-[#1557D6]">등록</button>
-            <button type="button" onClick={() => { setTitle(""); setDuration(""); setRoles(""); setCriteria(""); setDescription(""); }} className="inline-flex items-center gap-2 rounded-full border border-navy/10 px-4 py-2 text-sm font-semibold text-navy/70">초기화</button>
+            <button type="button" onClick={() => { setTitle(""); setDuration(""); setDeadline(""); setRoles(""); setCriteria(""); setDescription(""); }} className="inline-flex items-center gap-2 rounded-full border border-navy/10 px-4 py-2 text-sm font-semibold text-navy/70">초기화</button>
           </div>
         </form>
       </div>

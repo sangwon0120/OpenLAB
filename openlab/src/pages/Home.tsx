@@ -72,14 +72,15 @@ export default function Home() {
             <div className="space-y-6">
               <p className="inline-flex items-center gap-2 rounded-full bg-slate px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-navy/70">
                 <LineChart className="h-4 w-4 text-accent" />
-                스킬 중심 연구 경험
+                Skill-based Research Experience
               </p>
               <h1 className="text-4xl font-semibold leading-tight md:text-5xl">
                 OpenLAB: Unbundling of Research
               </h1>
               <p className="text-lg text-navy/70">
-                가벼운 참여로도 학부 연구를 경험하세요. 전공 중심에서 스킬 중심으로
-                전환합니다.
+                Light Commitment, Heavy Impact:
+                <br />
+                Degree based to Skill-based Experience
               </p>
               <div className="flex flex-wrap gap-4">
                 <button className="rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white shadow-glow transition hover:-translate-y-0.5 hover:bg-[#1557D6]">
@@ -92,11 +93,11 @@ export default function Home() {
               <div className="flex flex-wrap gap-6 text-sm text-navy/60">
                 <div className="flex items-center gap-2">
                   <UserSquare2 className="h-4 w-4 text-accent" />
-                  학생은 바로 참여 가능한 마이크로 태스크
+                  바로 지원 가능한 Micro-tasks
                 </div>
                 <div className="flex items-center gap-2">
                   <BadgeCheck className="h-4 w-4 text-accent" />
-                  스킬 기반 인증서
+                  Skill-based Certification 제공
                 </div>
               </div>
             </div>
@@ -105,7 +106,7 @@ export default function Home() {
               <div className="space-y-6">
                 <div className="rounded-2xl bg-white p-6 shadow-sm">
                   <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-                    진행 중 프로젝트
+                    Ongoing Project
                   </p>
                   <h3 className="mt-2 text-lg font-semibold">
                     Stock Prediction Transformer Model
@@ -115,7 +116,7 @@ export default function Home() {
                   </p>
                   <div className="mt-4 flex items-center gap-2 text-xs text-navy/60">
                     <span className="rounded-full bg-accent/10 px-3 py-1 text-accent">
-                      언번들드 태스크
+                      Unbundled Task
                     </span>
                     <span>Python · Pandas</span>
                   </div>
@@ -126,7 +127,7 @@ export default function Home() {
                       For Students
                     </p>
                     <p className="mt-2">
-                      1개월도 안 되는 기간으로 연구를 경험할 수 있습니다.
+                      짧은 기간으로 실제 연구 경험을 쌓아보세요.
                     </p>
                   </div>
                   <div className="rounded-2xl bg-white p-5 text-sm text-navy/70 shadow-sm">
@@ -152,13 +153,12 @@ export default function Home() {
             </p>
             <h2 className="text-3xl font-semibold">Solve the Dilemma of Choice</h2>
             <p className="text-base text-navy/70">
-              학생은 전공 선택의 불확실성과 연구실은 반복 업무 인력 부족을
-              동시에 겪고 있습니다.
+              학생은 전공이 아닌 연구 주제에 도전하고 싶은 마음과, 전공 공부의 지속 사이에서 고민합니다.
             </p>
             <div className="rounded-2xl border border-navy/10 bg-white p-5 text-sm text-navy/70 shadow-sm">
               <p className="font-semibold text-navy">The Problem</p>
               <p className="mt-2">
-                잘못된 전공 선택의 두려움 + 연구 보조 인력 부족
+                본 전공을 벗어나는 것에 대한 두려움 + 관심 분야에 도전하지 못하는 것에 대한 아쉬움
               </p>
             </div>
           </div>
@@ -167,23 +167,22 @@ export default function Home() {
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-accent">
                 The Solution
               </p>
-              <h3 className="mt-2 text-2xl font-semibold">Micro-projects</h3>
+              <h3 className="mt-2 text-2xl font-semibold">Micro-tasks</h3>
               <p className="mt-2 text-sm text-navy/70">
-                1년 대신 1개월 단위의 데이터 전처리 태스크에 참여해 실제 연구
-                스킬을 빠르게 습득합니다.
+                바로 지원 가능한 집중형 micro task로 실제 연구 환경을 경험합니다.
               </p>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="rounded-2xl bg-white p-5 text-sm text-navy/70 shadow-sm">
                 <p className="font-semibold text-navy">Students</p>
                 <p className="mt-2">
-                  전공이 아닌 스킬 기준으로 연구를 탐색합니다.
+                  관심 분야의 연구에 가벼운 참여로 경험을 쌓습니다.
                 </p>
               </div>
               <div className="rounded-2xl bg-white p-5 text-sm text-navy/70 shadow-sm">
-                <p className="font-semibold text-navy">Professors</p>
+                <p className="font-semibold text-navy">Labs</p>
                 <p className="mt-2">
-                  검증된 인력을 필요한 태스크에 빠르게 투입합니다.
+                  검증된 인력을 필요한 task에 빠르게 투입합니다.
                 </p>
               </div>
             </div>
@@ -200,12 +199,12 @@ export default function Home() {
               </p>
               <h2 className="text-3xl font-semibold">Four steps to impact</h2>
               <p className="text-base text-navy/70">
-                연구의 진행 속도와 학생의 학습 기회를 동시에 끌어올립니다.
+                AI 기반 screening과 전문가와의 간단한 interview로 빠르게 매칭합니다.
               </p>
             </div>
             <div className="flex items-center gap-3 text-sm text-navy/60">
               <Sparkles className="h-4 w-4 text-accent" />
-              LLM 스크리닝 + 빠른 인터뷰
+              AI Screening + 빠른 Interview
             </div>
           </div>
           <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -239,7 +238,7 @@ export default function Home() {
                 Featured Projects
               </p>
               <h2 className="text-3xl font-semibold">
-                집중형 마이크로 태스크로 시작하세요
+                집중형 Micro Task로 시작하세요
               </h2>
             </div>
             <button className="inline-flex items-center gap-2 text-sm font-semibold text-accent">
@@ -293,7 +292,7 @@ export default function Home() {
               </div>
             </div>
             <p className="text-sm text-white/70">
-              검증된 인증서와 SaaS 기반 스크리닝으로 연구실과 학생을 연결합니다.
+              검증된 인증서와 AI agent 기반 screening으로 연구실과 학생을 연결합니다.
             </p>
           </div>
           <div className="grid gap-4 text-sm text-white/70 sm:grid-cols-2">
@@ -309,7 +308,7 @@ export default function Home() {
             <div className="flex items-start gap-3">
               <LineChart className="mt-1 h-4 w-4 text-accent" />
               <div>
-                <p className="font-semibold text-white">SaaS Screening</p>
+                <p className="font-semibold text-white">AI agent Screening</p>
                 <p className="text-white/60">
                   AI 기반 스킬 매칭으로 빠른 채용을 지원합니다.
                 </p>
@@ -319,7 +318,7 @@ export default function Home() {
         </div>
         <div className="mx-auto mt-10 flex max-w-6xl flex-col gap-2 px-6 text-xs text-white/50 md:flex-row md:items-center md:justify-between">
           <p>© {year} OpenLAB. 모든 권리 보유.</p>
-          <p>Light Commitment, Heavy Impact.</p>
+          <p>Unbundling of Research: Light Commitment, Heavy Impact.</p>
         </div>
       </footer>
     </>

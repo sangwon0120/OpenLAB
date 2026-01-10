@@ -64,6 +64,44 @@ export function savePostedNotice(notice: PostedNotice) {
   safeWriteJson(POSTED_NOTICES_KEY, next);
 }
 
+export function updatePostedNoticeStatus(params: {
+  id: string;
+  ownerEmail: string;
+  status: string;
+}): boolean {
+  const id = String(params.id || "").trim();
+  const ownerEmail = String(params.ownerEmail || "").trim().toLowerCase();
+  if (!id || !ownerEmail) return false;
+
+  const list = loadPostedNotices();
+  const idx = list.findIndex(
+    (n) => n.id === id && String(n.ownerEmail || "").trim().toLowerCase() === ownerEmail
+  );
+  if (idx === -1) return false;
+
+  const updated: PostedNotice = { ...list[idx], status: params.status };
+  const next = [...list];
+  next[idx] = updated;
+  safeWriteJson(POSTED_NOTICES_KEY, next);
+  return true;
+}
+
+export function deletePostedNotice(params: { id: string; ownerEmail: string }): boolean {
+  const id = String(params.id || "").trim();
+  const ownerEmail = String(params.ownerEmail || "").trim().toLowerCase();
+  if (!id || !ownerEmail) return false;
+
+  const list = loadPostedNotices();
+  const next = list.filter(
+    (n) => !(n.id === id && String(n.ownerEmail || "").trim().toLowerCase() === ownerEmail)
+  );
+  if (next.length === list.length) return false;
+
+  safeWriteJson(POSTED_NOTICES_KEY, next);
+  deleteApplicationsByNoticeId(id);
+  return true;
+}
+
 export function loadApplications(): Application[] {
   const list = safeReadJson<Application[]>(APPLICATIONS_KEY, []);
   const apps = Array.isArray(list) ? list : [];
@@ -83,6 +121,16 @@ export function saveApplication(app: Application) {
 
 export function getApplicationsByNoticeId(noticeId: string): Application[] {
   return loadApplications().filter((a) => a.noticeId === noticeId);
+}
+
+function deleteApplicationsByNoticeId(noticeId: string) {
+  const id = String(noticeId || "").trim();
+  if (!id) return;
+  const apps = loadApplications();
+  const next = apps.filter((a) => String(a.noticeId || "") !== id);
+  if (next.length !== apps.length) {
+    safeWriteJson(APPLICATIONS_KEY, next);
+  }
 }
 
 function normalizeAndPersistApplications(apps: Application[]): Application[] {

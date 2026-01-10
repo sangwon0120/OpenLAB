@@ -3,7 +3,13 @@ import { Calendar, ClipboardList, Search } from "lucide-react";
 import { Link } from "react-router-dom";
 import { notices } from "../data/notices";
 import { useAuth } from "../context/AuthContext";
-import { loadApplications, loadPostedNotices, savePostedNotice } from "../lib/openlabStore";
+import {
+  deletePostedNotice,
+  loadApplications,
+  loadPostedNotices,
+  savePostedNotice,
+  updatePostedNoticeStatus,
+} from "../lib/openlabStore";
 
 export default function Notices() {
   const { auth } = useAuth();
@@ -122,18 +128,21 @@ export default function Notices() {
       <section className="bg-slate py-12">
         <div className="mx-auto max-w-6xl px-6">
           <div className="overflow-hidden rounded-3xl border border-navy/10 bg-white shadow-sm">
-            <div className="hidden grid-cols-[1.2fr_2.2fr_1.2fr_1.2fr_1fr] gap-4 border-b border-navy/10 bg-white px-6 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-navy/50 md:grid">
+            <div className="hidden grid-cols-[1.2fr_2.2fr_1fr_1.2fr_1.2fr_1fr_1fr_1.2fr] gap-4 border-b border-navy/10 bg-white px-6 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-navy/50 md:grid">
               <span>번호</span>
               <span>공고 제목</span>
+              <span className="text-center">상태</span>
               <span>연구실</span>
               <span>기간</span>
-              <span>마감</span>
+              <span className="text-right">마감일</span>
+              <span className="text-right">지원자 현황</span>
+              <span className="text-right">관리</span>
             </div>
             <div className="divide-y divide-navy/10">
               {list.map((notice) => (
                 <div
                   key={notice.id}
-                  className="flex flex-col gap-3 px-6 py-5 md:grid md:grid-cols-[1.2fr_2.2fr_1.2fr_1.2fr_1fr] md:items-center"
+                  className="flex flex-col gap-3 px-6 py-5 md:grid md:grid-cols-[1.2fr_2.2fr_1fr_1.2fr_1.2fr_1fr_1fr_1.2fr] md:items-center"
                 >
                   <div className="flex items-center gap-2 text-sm font-semibold text-navy">
                     <ClipboardList className="h-4 w-4 text-accent" />
@@ -143,27 +152,92 @@ export default function Notices() {
                     <Link to={`/notices/${notice.id}`} className="hover:underline">
                       {notice.title}
                     </Link>
-                    <span className="ml-3 rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-2 text-sm text-navy/70 md:justify-self-center md:justify-center">
+                    <span className="rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">
                       {notice.status}
                     </span>
 
-                    {effectiveMode === "student" && auth.isLoggedIn && myEmail && applications.some((a: any) => a.noticeId === notice.id && (a.email || "").toLowerCase() === myEmail) && (
-                      <span className="ml-2 rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
-                        지원완료
-                      </span>
-                    )}
+                    {effectiveMode === "student" &&
+                      auth.isLoggedIn &&
+                      myEmail &&
+                      applications.some(
+                        (a: any) =>
+                          a.noticeId === notice.id && (a.email || "").toLowerCase() === myEmail
+                      ) && (
+                        <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
+                          지원완료
+                        </span>
+                      )}
+                  </div>
+                  <div className="text-sm text-navy/70">{notice.lab}</div>
+                  <div className="text-sm text-navy/70">{notice.duration}</div>
+                  <div className="md:justify-self-end">
+                    <span className="inline-flex items-center gap-2 rounded-full bg-slate px-3 py-1 text-xs font-semibold text-navy/70 tabular-nums whitespace-nowrap">
+                      <Calendar className="h-4 w-4 text-accent" />
+                      {String((notice as any)?.deadline || "").trim() || "-"}
+                    </span>
+                  </div>
 
+                  <div className="text-sm text-navy/70 md:justify-self-end">
                     {effectiveMode === "lab" && (
-                      <span className="ml-2 rounded-full bg-slate px-3 py-1 text-xs font-semibold text-navy/70">
+                      <span className="rounded-full bg-slate px-3 py-1 text-xs font-semibold text-navy/70">
                         지원자 {(applicantCounts.get(String(notice.id)) || 0)}명
                       </span>
                     )}
                   </div>
-                  <div className="text-sm text-navy/70">{notice.lab}</div>
-                  <div className="text-sm text-navy/70">{notice.duration}</div>
-                  <div className="flex items-center gap-2 text-sm text-navy/70">
-                    <Calendar className="h-4 w-4 text-accent" />
-                    {notice.deadline}
+
+                  <div className="text-sm text-navy/70 md:justify-self-end">
+                    {effectiveMode === "lab" && (notice as any)?.ownerEmail === (auth.user?.email || "") && (
+                      <div className="grid grid-cols-1 gap-2">
+                        <button
+                          type="button"
+                          className="w-full rounded-full border border-navy/20 px-3 py-1 text-xs font-semibold text-navy/70 hover:border-navy/40"
+                          onClick={() => {
+                            const ok = updatePostedNoticeStatus({
+                              id: String(notice.id),
+                              ownerEmail: String(auth.user?.email || ""),
+                              status: "모집중",
+                            });
+                            if (ok) setStoreVersion((v) => v + 1);
+                          }}
+                        >
+                          Open
+                        </button>
+                        <button
+                          type="button"
+                          className="w-full rounded-full border border-navy/20 px-3 py-1 text-xs font-semibold text-navy/70 hover:border-navy/40"
+                          onClick={() => {
+                            const ok = updatePostedNoticeStatus({
+                              id: String(notice.id),
+                              ownerEmail: String(auth.user?.email || ""),
+                              status: "마감",
+                            });
+                            if (ok) setStoreVersion((v) => v + 1);
+                          }}
+                        >
+                          Close
+                        </button>
+                        <button
+                          type="button"
+                          className="w-full rounded-full border border-red-200 bg-red-50 px-3 py-1 text-xs font-semibold text-red-600 hover:bg-red-100"
+                          onClick={() => {
+                            const sure = window.confirm(
+                              "공고를 삭제할까요? (지원자 데이터도 함께 제거됩니다)"
+                            );
+                            if (!sure) return;
+                            const ok = deletePostedNotice({
+                              id: String(notice.id),
+                              ownerEmail: String(auth.user?.email || ""),
+                            });
+                            if (ok) setStoreVersion((v) => v + 1);
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
