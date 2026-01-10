@@ -52,7 +52,7 @@ export default function TopNav() {
       <div className="mx-auto flex max-w-6xl flex-col items-start gap-4 px-6 py-5 md:flex-row md:flex-nowrap md:items-center md:gap-6">
         <Link className="flex items-center" to="/">
           <div className="space-y-1">
-            <p className="text-2xl font-extrabold tracking-[0.1em] text-[#0000E6]">
+            <p className="text-2xl font-extrabold tracking-[0.1em] text-accent">
               OpenLAB
             </p>
             <p className="flex items-center gap-2 text-xs text-navy/60">

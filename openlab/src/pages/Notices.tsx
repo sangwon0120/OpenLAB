@@ -100,6 +100,7 @@ export default function Notices() {
   }
 
   const myEmail = (auth.user?.email || "").trim().toLowerCase();
+  const isLabView = effectiveMode === "lab";
 
   return (
     <div className="bg-white text-navy">
@@ -128,7 +129,13 @@ export default function Notices() {
       <section className="bg-slate py-12">
         <div className="mx-auto max-w-6xl px-6">
           <div className="overflow-hidden rounded-3xl border border-navy/10 bg-white shadow-sm">
-            <div className="hidden grid-cols-[1.2fr_2.2fr_1fr_1.2fr_1.2fr_1fr_1fr_1.2fr] gap-4 border-b border-navy/10 bg-white px-6 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-navy/50 md:grid">
+            <div
+              className={`hidden gap-4 border-b border-navy/10 bg-white px-6 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-navy/50 md:grid ${
+                isLabView
+                  ? "grid-cols-[1.2fr_2.2fr_1fr_1.2fr_1.2fr_1fr_1fr_1.2fr]"
+                  : "grid-cols-[1.2fr_2.2fr_1fr_1.2fr_1.2fr_1fr_1fr]"
+              }`}
+            >
               <span>번호</span>
               <span>공고 제목</span>
               <span className="text-center">상태</span>
@@ -136,13 +143,17 @@ export default function Notices() {
               <span>기간</span>
               <span className="text-right">마감일</span>
               <span className="text-right">지원자 현황</span>
-              <span className="text-right">관리</span>
+              {isLabView && <span className="text-center">관리</span>}
             </div>
             <div className="divide-y divide-navy/10">
               {list.map((notice) => (
                 <div
                   key={notice.id}
-                  className="flex flex-col gap-3 px-6 py-5 md:grid md:grid-cols-[1.2fr_2.2fr_1fr_1.2fr_1.2fr_1fr_1fr_1.2fr] md:items-center"
+                  className={`flex flex-col gap-3 px-6 py-5 md:grid ${
+                    isLabView
+                      ? "md:grid-cols-[1.2fr_2.2fr_1fr_1.2fr_1.2fr_1fr_1fr_1.2fr] md:items-start"
+                      : "md:grid-cols-[1.2fr_2.2fr_1fr_1.2fr_1.2fr_1fr_1fr] md:items-center"
+                  }`}
                 >
                   <div className="flex items-center gap-2 text-sm font-semibold text-navy">
                     <ClipboardList className="h-4 w-4 text-accent" />
@@ -181,64 +192,75 @@ export default function Notices() {
                   </div>
 
                   <div className="text-sm text-navy/70 md:justify-self-end">
-                    {effectiveMode === "lab" && (
-                      <span className="rounded-full bg-slate px-3 py-1 text-xs font-semibold text-navy/70">
-                        지원자 {(applicantCounts.get(String(notice.id)) || 0)}명
-                      </span>
-                    )}
+                    <span className="rounded-full bg-slate px-3 py-1 text-xs font-semibold text-navy/70">
+                      지원자 {(applicantCounts.get(String(notice.id)) || 0)}명
+                    </span>
                   </div>
 
-                  <div className="text-sm text-navy/70 md:justify-self-end">
-                    {effectiveMode === "lab" && (notice as any)?.ownerEmail === (auth.user?.email || "") && (
-                      <div className="grid grid-cols-1 gap-2">
-                        <button
-                          type="button"
-                          className="w-full rounded-full border border-navy/20 px-3 py-1 text-xs font-semibold text-navy/70 hover:border-navy/40"
-                          onClick={() => {
-                            const ok = updatePostedNoticeStatus({
-                              id: String(notice.id),
-                              ownerEmail: String(auth.user?.email || ""),
-                              status: "모집중",
-                            });
-                            if (ok) setStoreVersion((v) => v + 1);
-                          }}
-                        >
-                          Open
-                        </button>
-                        <button
-                          type="button"
-                          className="w-full rounded-full border border-navy/20 px-3 py-1 text-xs font-semibold text-navy/70 hover:border-navy/40"
-                          onClick={() => {
-                            const ok = updatePostedNoticeStatus({
-                              id: String(notice.id),
-                              ownerEmail: String(auth.user?.email || ""),
-                              status: "마감",
-                            });
-                            if (ok) setStoreVersion((v) => v + 1);
-                          }}
-                        >
-                          Close
-                        </button>
-                        <button
-                          type="button"
-                          className="w-full rounded-full border border-red-200 bg-red-50 px-3 py-1 text-xs font-semibold text-red-600 hover:bg-red-100"
-                          onClick={() => {
-                            const sure = window.confirm(
-                              "공고를 삭제할까요? (지원자 데이터도 함께 제거됩니다)"
-                            );
-                            if (!sure) return;
-                            const ok = deletePostedNotice({
-                              id: String(notice.id),
-                              ownerEmail: String(auth.user?.email || ""),
-                            });
-                            if (ok) setStoreVersion((v) => v + 1);
-                          }}
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    )}
-                  </div>
+                  {isLabView && (
+                    <div className="text-sm text-navy/70 md:justify-self-center md:self-start">
+                      {(notice as any)?.ownerEmail === (auth.user?.email || "") && (
+                        <div className="grid w-full grid-cols-1 gap-2">
+                          <div className="flex w-full items-center rounded-full border border-accent/20 bg-accent/10 p-0.5">
+                            <button
+                              type="button"
+                              className={`flex-1 rounded-full px-2.5 py-0.5 text-xs font-semibold transition ${
+                                String((notice as any)?.status || "") === "마감"
+                                  ? "text-navy/70 hover:text-navy"
+                                  : "bg-accent text-white"
+                              }`}
+                              onClick={() => {
+                                const ok = updatePostedNoticeStatus({
+                                  id: String(notice.id),
+                                  ownerEmail: String(auth.user?.email || ""),
+                                  status: "모집중",
+                                });
+                                if (ok) setStoreVersion((v) => v + 1);
+                              }}
+                            >
+                              Open
+                            </button>
+                            <button
+                              type="button"
+                              className={`flex-1 rounded-full px-2.5 py-0.5 text-xs font-semibold transition ${
+                                String((notice as any)?.status || "") === "마감"
+                                  ? "bg-accent text-white"
+                                  : "text-navy/70 hover:text-navy"
+                              }`}
+                              onClick={() => {
+                                const ok = updatePostedNoticeStatus({
+                                  id: String(notice.id),
+                                  ownerEmail: String(auth.user?.email || ""),
+                                  status: "마감",
+                                });
+                                if (ok) setStoreVersion((v) => v + 1);
+                              }}
+                            >
+                              Close
+                            </button>
+                          </div>
+
+                          <button
+                            type="button"
+                            className="w-full rounded-full border border-red-200 bg-red-50 px-2.5 py-0.5 text-xs font-semibold text-red-600 hover:bg-red-100"
+                            onClick={() => {
+                              const sure = window.confirm(
+                                "공고를 삭제할까요? (지원자 데이터도 함께 제거됩니다)"
+                              );
+                              if (!sure) return;
+                              const ok = deletePostedNotice({
+                                id: String(notice.id),
+                                ownerEmail: String(auth.user?.email || ""),
+                              });
+                              if (ok) setStoreVersion((v) => v + 1);
+                            }}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
