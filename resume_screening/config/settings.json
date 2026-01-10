@@ -1,0 +1,44 @@
+{
+    "company_name": "ABC 테크놀로지",
+    "company_info": "기술 혁신을 통해 더 나은 미래를 만들어가는 기업",
+    "screening_settings": {
+        "ai_model": "gpt-3.5-turbo",
+        "evaluation_timeout": 30,
+        "max_tokens": 1000,
+        "temperature": 0.3,
+        "scoring_system": {
+            "min_passing_score": 7.0,
+            "categories": {
+                "technical_skills": 0.4,
+                "experience": 0.3,
+                "education": 0.2,
+                "soft_skills": 0.1
+            }
+        }
+    },
+    "evaluation_criteria": {
+        "mandatory_requirements": {
+            "must_have_skills": {
+                "Python": 1,
+                "JavaScript": 1,
+                "React": 1
+            },
+            "experience_minimum": 3,
+            "education_minimum": "학사"
+        },
+        "scoring_weights": {
+            "skill_matching": 0.4,
+            "experience_relevance": 0.3,
+            "education_level": 0.15,
+            "certifications": 0.1,
+            "portfolio_quality": 0.05
+        }
+    },
+    "output_settings": {
+        "generate_detailed_report": true,
+        "include_keyword_analysis": true,
+        "export_formats": ["excel", "json", "csv"],
+        "sort_by_score": true,
+        "group_by_recommendation": true
+    }
+}

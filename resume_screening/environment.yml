@@ -1,0 +1,17 @@
+name: resume-screening
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pip
+  - pip:
+    - openai
+    - pandas
+    - PyPDF2
+    - python-docx
+    - aiofiles
+    - asyncio
+    - pytest
+    - pytest-asyncio
+    - python-dotenv
