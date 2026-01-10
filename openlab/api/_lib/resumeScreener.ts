@@ -2,26 +2,27 @@
 import fetch from "node-fetch";
 
 export async function screenResume({ jobDescription = "", criteria = "", resumeText = "" } = {}) {
-  // Ollama 서버 URL (환경변수 또는 기본값)
-  const ollamaUrl = process.env.OLLAMA_URL || "http://localhost:8000";
+  // Python FastAPI 서버 URL (Ollama 기반)
+  const pythonServerUrl = "http://localhost:8000";
 
   try {
     // Python FastAPI 서버 호출 (Ollama 기반)
-    const res = await fetch(`${ollamaUrl}/analyze-resume`, {
+    const formData = new URLSearchParams();
+    formData.append("job_description", jobDescription);
+    formData.append("criteria", criteria);
+    formData.append("resume_text", resumeText);
+
+    const res = await fetch(`${pythonServerUrl}/analyze-resume`, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: new URLSearchParams({
-        job_description: jobDescription,
-        criteria: criteria,
-        resume_text: resumeText,
-      }),
+      body: formData.toString(),
     });
 
     if (!res.ok) {
       const txt = await res.text();
-      throw new Error(`Ollama server error: ${res.status} ${txt}`);
+      throw new Error(`Python server error: ${res.status} ${txt}`);
     }
 
     const body = await res.json();
@@ -29,10 +30,10 @@ export async function screenResume({ jobDescription = "", criteria = "", resumeT
     if (body.success) {
       return { success: true, data: body };
     } else {
-      throw new Error(body.error || "Unknown error from Ollama server");
+      throw new Error(body.error || "Unknown error from Python server");
     }
   } catch (e) {
-    console.error("Ollama screen error", e.message || e);
+    console.error("Resume screening error", e.message || e);
   }
 
   // Fallback simple screener: for each criteria line, check substring presence and produce simple reasoning
