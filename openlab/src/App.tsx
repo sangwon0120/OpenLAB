@@ -1,10 +1,14 @@
 ﻿import { Routes, Route, Outlet } from "react-router-dom";
 import Home from "./pages/Home";
 import Notices from "./pages/Notices";
+import NoticeDetail from "./pages/NoticeDetail";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import MyPage from "./pages/MyPage";
 import TopNav from "./components/TopNav";
+import ProtectedRoute from "./components/ProtectedRoute";
+import PostNotice from "./pages/PostNotice";
+import ResumeScreener from "./pages/ResumeScreener";
 
 function Layout() {
   return (
@@ -37,16 +41,23 @@ export default function App() {
       <Route element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="notices" element={<Notices />} />
+        <Route path="notices/:id" element={<NoticeDetail />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
-        <Route path="mypage" element={<MyPage />} />
+        <Route
+          path="mypage"
+          element={
+            <ProtectedRoute>
+              <MyPage />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="post"
           element={
-            <ComingSoon
-              title="공고 등록"
-              description="연구실 전용 공고 등록 화면을 준비 중입니다."
-            />
+            <ProtectedRoute role="lab">
+              <PostNotice />
+            </ProtectedRoute>
           }
         />
         <Route
@@ -58,6 +69,7 @@ export default function App() {
             />
           }
         />
+        <Route path="resume-screener" element={<ResumeScreener />} />
         <Route
           path="community"
           element={

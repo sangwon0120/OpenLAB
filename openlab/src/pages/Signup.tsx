@@ -2,10 +2,10 @@
 import { Link } from "react-router-dom";
 import { FlaskConical, Lock, Mail, User } from "lucide-react";
 
-type Role = "user" | "lab";
+type Role = "student" | "lab";
 
 export default function Signup() {
-  const [role, setRole] = useState<Role>("user");
+  const [role, setRole] = useState<Role>("student");
 
   return (
     <section className="bg-slate py-16">
@@ -26,15 +26,15 @@ export default function Signup() {
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
               <button
                 className={`flex items-center justify-center gap-2 rounded-2xl border px-4 py-3 text-sm font-semibold transition ${
-                  role === "user"
+                  role === "student"
                     ? "border-accent bg-accent/10 text-accent"
                     : "border-navy/10 text-navy/70 hover:border-navy/30"
                 }`}
-                onClick={() => setRole("user")}
+                onClick={() => setRole("student")}
                 type="button"
               >
                 <User className="h-4 w-4" />
-                일반 사용자
+                학생/일반 사용자
               </button>
               <button
                 className={`flex items-center justify-center gap-2 rounded-2xl border px-4 py-3 text-sm font-semibold transition ${
@@ -50,7 +50,7 @@ export default function Signup() {
               </button>
             </div>
             <div className="mt-6 rounded-2xl bg-slate px-4 py-4 text-sm text-navy/70">
-              {role === "user"
+              {role === "student"
                 ? "학생/일반 사용자는 프로젝트 참여 이력과 인증서를 관리합니다."
                 : "Lab 사용자는 공고 등록, 지원자 평가, 프로젝트 관리를 진행합니다."}
             </div>

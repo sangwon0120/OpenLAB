@@ -1,4 +1,5 @@
 ﻿import { useMemo } from "react";
+import { Link } from "react-router-dom";
 import {
   BadgeCheck,
   BrainCircuit,
@@ -37,25 +38,28 @@ const steps = [
 
 const projects = [
   {
+    id: "NL-2401",
     title: "Stock Prediction Transformer Model - Data Preprocessing",
     lab: "B 교수 산업공학 연구실",
     duration: "1개월",
     skill: "Pandas, Python",
-    tag: "언번들드 태스크",
+    tag: "Data Science",
   },
   {
+    id: "NL-2402",
     title: "Bio-Signal Classification - Feature Extraction",
     lab: "NeuroTech 연구그룹",
     duration: "3주",
     skill: "NumPy, Signal Processing",
-    tag: "마이크로 프로젝트",
+    tag: "Bioinformatics",
   },
   {
+    id: "NL-2403",
     title: "Smart Campus Energy Forecasting - Data Labeling",
     lab: "스마트 시스템 연구실",
     duration: "2주",
     skill: "Labeling, Excel",
-    tag: "빠른 참여",
+    tag: "Smart Systems",
   },
 ];
 
@@ -75,7 +79,9 @@ export default function Home() {
                 Skill-based Research Experience
               </p>
               <h1 className="text-4xl font-semibold leading-tight md:text-5xl">
-                OpenLAB: Unbundling of Research
+                OpenLAB: 
+                <br />
+                Unbundling of Research
               </h1>
               <p className="text-lg text-navy/70">
                 Light Commitment, Heavy Impact:
@@ -241,37 +247,37 @@ export default function Home() {
                 집중형 Micro Task로 시작하세요
               </h2>
             </div>
-            <button className="inline-flex items-center gap-2 text-sm font-semibold text-accent">
+            <Link
+              to="/notices"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-accent"
+            >
               더 많은 프로젝트 보기
               <Sparkles className="h-4 w-4" />
-            </button>
+            </Link>
           </div>
           <div className="mt-10 grid gap-6 lg:grid-cols-3">
             {projects.map((project) => (
-              <article
-                key={project.title}
-                className="flex h-full flex-col justify-between rounded-3xl border border-navy/10 bg-white p-6 shadow-sm"
-              >
-                <div className="space-y-4">
-                  <span className="inline-flex w-fit items-center rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">
-                    {project.tag}
-                  </span>
-                  <h3 className="text-lg font-semibold">{project.title}</h3>
-                  <p className="text-sm text-navy/70">{project.lab}</p>
-                </div>
-                <div className="mt-6 space-y-2 text-sm text-navy/60">
-                  <div className="flex items-center justify-between">
-                    <span>기간</span>
-                    <span className="font-semibold text-navy">
-                      {project.duration}
+              <Link key={project.id} to={`/notices/${project.id}`} className="block h-full">
+                <article className="flex h-full flex-col justify-between rounded-3xl border border-navy/10 bg-white p-6 shadow-sm">
+                  <div className="space-y-4">
+                    <span className="inline-flex w-fit items-center rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">
+                      {project.tag}
                     </span>
+                    <h3 className="text-lg font-semibold">{project.title}</h3>
+                    <p className="text-sm text-navy/70">{project.lab}</p>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span>기술</span>
-                    <span className="font-semibold text-navy">{project.skill}</span>
+                  <div className="mt-6 space-y-2 text-sm text-navy/60">
+                    <div className="flex items-center justify-between">
+                      <span>기간</span>
+                      <span className="font-semibold text-navy">{project.duration}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>기술</span>
+                      <span className="font-semibold text-navy">{project.skill}</span>
+                    </div>
                   </div>
-                </div>
-              </article>
+                </article>
+              </Link>
             ))}
           </div>
         </div>

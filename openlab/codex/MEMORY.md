@@ -85,36 +85,3 @@ Assistant:
 Assistant: 다음 단계 제안
 Assistant: 1) `cd openlab` 후 `npm run dev`로 확인
 Assistant: 2) 원하는 섹션/UX 디테일을 알려주면 순차적으로 추가
-
-# 2026-01-08
-Assistant: OpenLAB ?? ???? ?? ?? ??? ???? ???????, ?? ?? ???? ????.
-Assistant: - `src/App.tsx`: ???/??-??/?? ??/????/?? ??? ???? ??, ?? ??? ??/?? ?? ??, ??? ???? ??, ??? ??.
-Assistant: - `src/App.tsx`: ???? ???? ???/??/??? ???? ??.
-Assistant: ??? ??? ?? `npm install`? ???? `vite` ?? ??? ????.
-
-# 2026-01-08 (추가 작업)
-Assistant: 메뉴바/라우팅/공고/로그인/회원가입/마이페이지까지 확장, UI 정렬 반복 수정.
-Assistant: - `openlab/src/components/TopNav.tsx`: 메뉴 항목 추가(마이페이지), 로그인/회원가입 배치 조정, 로고 텍스트/아이콘(별) 스타일 변경, Unbundling 문구 위치/스타일 조정.
-Assistant: - `openlab/src/pages/Notices.tsx`: 공고 게시판 페이지 추가(간단 테이블/카드형).
-Assistant: - `openlab/src/pages/Login.tsx`, `openlab/src/pages/Signup.tsx`: 일반 사용자/랩 사용자 분기 폼 UI 추가.
-Assistant: - `openlab/src/pages/MyPage.tsx`: 이력서/학력/경력/스킬 스택 관리 UI 추가.
-Assistant: - `openlab/src/pages/Home.tsx`: CTA 버튼을 라우팅 링크로 변경(`/notices`, `/post`).
-Assistant: - `openlab/src/App.tsx`: 라우트 추가(`/notices`, `/login`, `/signup`, `/mypage` 등).
-Assistant: - `openlab/src/main.tsx`: `BrowserRouter` 적용.
-Assistant: - `openlab/package.json`: `react-router-dom` 추가 및 JSON/BOM 문제 수정.
-Assistant: Vercel 빌드 오류 대응으로 `TopNav.tsx`의 미사용 아이콘 import 제거.
-Assistant: 외부 모델 레포를 `model/`로 클론하고 구조 분석 후 `model/pages` 파일명 기능별로 변경.
-Assistant: - `model/pages/*`: page1~6 → `web_crawler_query.py`, `resume_screening.py`, `document_chat.py`, `pdf_reader.py`, `data_analysis_viz.py`, `brand_archive.py`.
-Assistant: - `model_v2/modelAgents.md`: OpenLAB 이력서/공고 구조에 맞는 LLM 스크리닝 프롬프트/스키마로 재작성.
-
-# 2026-01-08 (추가 작업 2)
-Assistant: TopNav 로고/아이콘/정렬 조정 및 Unbundling 텍스트 위치 변경, 별 아이콘만 남기고 크기 확대.
-Assistant: - `openlab/src/components/TopNav.tsx`: 로고 텍스트 대문자 제거, 자간/굵기/크기 조정, 별 아이콘 위치 변경 및 테두리/배경 제거, 로그인/회원가입 정렬 변경.
-Assistant: Home CTA 버튼을 링크로 변경하고 문구 줄바꿈 처리.
-Assistant: - `openlab/src/pages/Home.tsx`: CTA 버튼 `/notices` `/post` 링크화, 슬로건 줄바꿈 적용.
-Assistant: model 레포 클론 및 페이지 파일명 정리.
-Assistant: - `model/`: Git 일반 폴더로 포함되도록 `.git` 제거 및 인덱스 재추가.
-Assistant: - `model/pages/*`: 기능별 파일명으로 리네임 유지.
-Assistant: model_v2 프롬프트를 프로젝트 구조에 맞게 업데이트.
-Assistant: - `model_v2/modelAgents.md`: resume_form/job_posting 기반 스키마/규칙 반영.
-Assistant: MEMORY.md에 작업 내용 추가 요청 수행.

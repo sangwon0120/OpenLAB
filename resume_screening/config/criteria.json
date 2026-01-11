@@ -1,0 +1,32 @@
+{
+    "min_experience_years": 3,
+    "required_skills": [
+        "Python",
+        "JavaScript",
+        "React",
+        "Node.js",
+        "Git",
+        "SQL"
+    ],
+    "preferred_skills": [
+        "TypeScript",
+        "AWS",
+        "Docker",
+        "Kubernetes",
+        "MongoDB",
+        "GraphQL",
+        "CI/CD",
+        "Agile"
+    ],
+    "required_education": "학사 이상",
+    "minimum_score": 7,
+    "experience_weights": {
+        "junior": 0.7,
+        "mid": 1.0,
+        "senior": 1.5
+    },
+    "skill_category_weights": {
+        "required": 1.0,
+        "preferred": 0.7
+    }
+}
