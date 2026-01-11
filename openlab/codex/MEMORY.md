@@ -1,5 +1,5 @@
 # 2026-01-06
-User: # AGENTS.md instructions for C:\Users\변상원\openLab
+User: # AGENTS.md instructions for C:\Users\변?�원\openLab
 User: <INSTRUCTIONS>
 User: You are an expert Frontend Developer specializing in React and Tailwind CSS.
 User: Please build a modern, responsive, and clean landing page for a startup called "OpenLAB".
@@ -61,30 +61,30 @@ User: - Make it fully responsive (mobile-friendly).
 User: - Use distinct sections with alternating background colors (White / Light Gray).
 User: </INSTRUCTIONS>
 User: <environment_context>
-User:   <cwd>C:\Users\변상원\openLab</cwd>
+User:   <cwd>C:\Users\변?�원\openLab</cwd>
 User:   <approval_policy>on-request</approval_policy>
 User:   <sandbox_mode>read-only</sandbox_mode>
 User:   <network_access>restricted</network_access>
 User:   <shell>powershell</shell>
 User: </environment_context>
-User: 웹사이트 개발할건데 AGENTS.md 참고해서 프론트만 일단 만들어줘.
-Assistant: 지금 `C:\Users\변상원\openLab`에는 `AGENTS.md`/`MEMORY.md`만 있고 React/Tailwind 프로젝트가 없어서 어디에 컴포넌트를 만들어야 할지 판단이 안 돼요. 원하시는 방식 알려주세요. 1) 기존 React+Tailwind 프로젝트 경로를 알려주기 2) 이 폴더에 새 React+Tailwind 프로젝트를 초기화해도 되면 승인 요청할게요 원하시는 번호만 알려주세요.
-User: 2번으로 해줘. 새로 처음부터 만들거야. 일단 간단한 페이지만 제작해줘. 세부 UI/UX들은 보면서 순차적으로 추가해나가자. 그리고 우리가 하는 대화를 하나도 빠짐없이 날짜별로 MEMORY.md 에 저장해줘
-Assistant: 새 Vite React + Tailwind 프로젝트를 `openlab/`에 만들고, 요청한 섹션으로 단일 랜딩 페이지를 구성했어. Hero/Problem & Solution/How It Works/Featured Projects/Footer를 카드 기반 레이아웃과 alternating 배경으로 넣었고, Lucide 아이콘을 사용했어. `openLab/MEMORY.md`에 오늘 대화 전체를 기록해두었어.
+User: ?�사?�트 개발?�건??AGENTS.md 참고?�서 ?�론?�만 ?�단 만들?�줘.
+Assistant: 지�?`C:\Users\변?�원\openLab`?�는 `AGENTS.md`/`MEMORY.md`�??�고 React/Tailwind ?�로?�트가 ?�어???�디??컴포?�트�?만들?�야 ?��? ?�단?????�요. ?�하?�는 방식 ?�려주세?? 1) 기존 React+Tailwind ?�로?�트 경로�??�려주기 2) ???�더????React+Tailwind ?�로?�트�?초기?�해???�면 ?�인 ?�청?�게???�하?�는 번호�??�려주세??
+User: 2번으�??�줘. ?�로 처음부??만들거야. ?�단 간단???�이지�??�작?�줘. ?��? UI/UX?��? 보면???�차?�으�?추�??�나가?? 그리�??�리가 ?�는 ?�?��? ?�나??빠짐?�이 ?�짜별로 MEMORY.md ???�?�해�?
+Assistant: ??Vite React + Tailwind ?�로?�트�?`openlab/`??만들�? ?�청???�션?�로 ?�일 ?�딩 ?�이지�?구성?�어. Hero/Problem & Solution/How It Works/Featured Projects/Footer�?카드 기반 ?�이?�웃�?alternating 배경?�로 ?�었�? Lucide ?�이콘을 ?�용?�어. `openLab/MEMORY.md`???�늘 ?�???�체�?기록?�두?�어.
 Assistant: 
-Assistant: 변경 위치
-Assistant: - `openlab/src/App.tsx`: 섹션 구성 및 콘텐츠, Lucide 아이콘, CTA
-Assistant: - `openlab/src/main.tsx`: React 엔트리
-Assistant: - `openlab/src/style.css`: Tailwind 베이스 및 기본 타이포 설정
-Assistant: - `openlab/tailwind.config.js`: 컬러 팔레트/쉐도 확장
-Assistant: - `openlab/index.html`: Manrope 폰트 로드, 타이틀, 엔트리 변경
-Assistant: - `openlab/vite.config.ts`: React 플러그인
+Assistant: 변�??�치
+Assistant: - `openlab/src/App.tsx`: ?�션 구성 �?콘텐�? Lucide ?�이�? CTA
+Assistant: - `openlab/src/main.tsx`: React ?�트�?
+Assistant: - `openlab/src/style.css`: Tailwind 베이??�?기본 ?�?�포 ?�정
+Assistant: - `openlab/tailwind.config.js`: 컬러 ?�레???�도 ?�장
+Assistant: - `openlab/index.html`: Manrope ?�트 로드, ?�?��?, ?�트�?변�?
+Assistant: - `openlab/vite.config.ts`: React ?�러그인
 Assistant: 
-Assistant: 참고: 폰트는 Manrope로 지정했는데 Inter/Roboto로 바꾸길 원하면 말해줘.
+Assistant: 참고: ?�트??Manrope�?지?�했?�데 Inter/Roboto�?바꾸�??�하�?말해�?
 Assistant: 
-Assistant: 다음 단계 제안
-Assistant: 1) `cd openlab` 후 `npm run dev`로 확인
-Assistant: 2) 원하는 섹션/UX 디테일을 알려주면 순차적으로 추가
+Assistant: ?�음 ?�계 ?�안
+Assistant: 1) `cd openlab` ??`npm run dev`�??�인
+Assistant: 2) ?�하???�션/UX ?�테?�을 ?�려주면 ?�차?�으�?추�?
 
 # 2026-01-08
 Assistant: OpenLAB ?? ???? ?? ?? ??? ???? ???????, ?? ?? ???? ????.
@@ -102,20 +102,20 @@ Assistant: ??? ??? ?? `npm install`? ???? `vite` ?? ??? ????.
 - Note: some files show mojibake/encoding damage and may need cleanup (NoticeDetail/PostNotice/ResumeScreener, notices data, API files).
 - Added edit flow for posted notices using `Edit` button and edit mode in `PostNotice` (`openlab/src/pages/Notices.tsx`, `openlab/src/pages/PostNotice.tsx`, `openlab/src/lib/openlabStore.ts`).
 - TopNav layout adjusted: left/right alignment, no-wrap slogan, and spacing tweaks (`openlab/src/components/TopNav.tsx`).
-# 2026-01-08 (추가 작업)
-Assistant: 메뉴바/라우팅/공고/로그인/회원가입/마이페이지까지 확장, UI 정렬 반복 수정.
-Assistant: - `openlab/src/components/TopNav.tsx`: 메뉴 항목 추가(마이페이지), 로그인/회원가입 배치 조정, 로고 텍스트/아이콘(별) 스타일 변경, Unbundling 문구 위치/스타일 조정.
-Assistant: - `openlab/src/pages/Notices.tsx`: 공고 게시판 페이지 추가(간단 테이블/카드형).
-Assistant: - `openlab/src/pages/Login.tsx`, `openlab/src/pages/Signup.tsx`: 일반 사용자/랩 사용자 분기 폼 UI 추가.
-Assistant: - `openlab/src/pages/MyPage.tsx`: 이력서/학력/경력/스킬 스택 관리 UI 추가.
-Assistant: - `openlab/src/pages/Home.tsx`: CTA 버튼을 라우팅 링크로 변경(`/notices`, `/post`).
-Assistant: - `openlab/src/App.tsx`: 라우트 추가(`/notices`, `/login`, `/signup`, `/mypage` 등).
-Assistant: - `openlab/src/main.tsx`: `BrowserRouter` 적용.
-Assistant: - `openlab/package.json`: `react-router-dom` 추가 및 JSON/BOM 문제 수정.
-Assistant: Vercel 빌드 오류 대응으로 `TopNav.tsx`의 미사용 아이콘 import 제거.
-Assistant: 외부 모델 레포를 `model/`로 클론하고 구조 분석 후 `model/pages` 파일명 기능별로 변경.
-Assistant: - `model/pages/*`: page1~6 → `web_crawler_query.py`, `resume_screening.py`, `document_chat.py`, `pdf_reader.py`, `data_analysis_viz.py`, `brand_archive.py`.
-Assistant: - `model_v2/modelAgents.md`: OpenLAB 이력서/공고 구조에 맞는 LLM 스크리닝 프롬프트/스키마로 재작성.
+# 2026-01-08 (추�? ?�업)
+Assistant: 메뉴�??�우??공고/로그???�원가??마이?�이지까�? ?�장, UI ?�렬 반복 ?�정.
+Assistant: - `openlab/src/components/TopNav.tsx`: 메뉴 ??�� 추�?(마이?�이지), 로그???�원가??배치 조정, 로고 ?�스???�이�?�? ?��???변�? Unbundling 문구 ?�치/?��???조정.
+Assistant: - `openlab/src/pages/Notices.tsx`: 공고 게시???�이지 추�?(간단 ?�이�?카드??.
+Assistant: - `openlab/src/pages/Login.tsx`, `openlab/src/pages/Signup.tsx`: ?�반 ?�용?????�용??분기 ??UI 추�?.
+Assistant: - `openlab/src/pages/MyPage.tsx`: ?�력???�력/경력/?�킬 ?�택 관�?UI 추�?.
+Assistant: - `openlab/src/pages/Home.tsx`: CTA 버튼???�우??링크�?변�?`/notices`, `/post`).
+Assistant: - `openlab/src/App.tsx`: ?�우??추�?(`/notices`, `/login`, `/signup`, `/mypage` ??.
+Assistant: - `openlab/src/main.tsx`: `BrowserRouter` ?�용.
+Assistant: - `openlab/package.json`: `react-router-dom` 추�? �?JSON/BOM 문제 ?�정.
+Assistant: Vercel 빌드 ?�류 ?�?�으�?`TopNav.tsx`??미사???�이�?import ?�거.
+Assistant: ?��? 모델 ?�포�?`model/`�??�론?�고 구조 분석 ??`model/pages` ?�일�?기능별로 변�?
+Assistant: - `model/pages/*`: page1~6 ??`web_crawler_query.py`, `resume_screening.py`, `document_chat.py`, `pdf_reader.py`, `data_analysis_viz.py`, `brand_archive.py`.
+Assistant: - `model_v2/modelAgents.md`: OpenLAB ?�력??공고 구조??맞는 LLM ?�크리닝 ?�롬?�트/?�키마로 ?�작??
 
 # 2026-01-08 (추가 작업 2)
 Assistant: TopNav 로고/아이콘/정렬 조정 및 Unbundling 텍스트 위치 변경, 별 아이콘만 남기고 크기 확대.
