@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { savePostedNotice } from "../lib/openlabStore";
+import { loadPostedNotices, savePostedNotice } from "../lib/openlabStore";
 
 export default function PostNotice() {
   const [title, setTitle] = useState("");
@@ -12,8 +12,57 @@ export default function PostNotice() {
   const [description, setDescription] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editingStatus, setEditingStatus] = useState("모집중");
+  const [editingCreatedAt, setEditingCreatedAt] = useState<string | null>(null);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const editId = useMemo(
+    () => String(searchParams.get("edit") || "").trim(),
+    [searchParams]
+  );
   const { auth } = useAuth();
+
+  useEffect(() => {
+    if (!editId) {
+      if (editingId) {
+        setEditingId(null);
+        setEditingStatus("모집중");
+        setEditingCreatedAt(null);
+        setError(null);
+        setSuccess(null);
+      }
+      return;
+    }
+    const ownerEmail = auth.user?.email || "";
+    if (!ownerEmail) {
+      setError("수정할 공고를 불러올 수 없습니다. 다시 로그인해 주세요.");
+      return;
+    }
+
+    const existing = loadPostedNotices().find(
+      (n) => n.id === editId && String(n.ownerEmail || "") === ownerEmail
+    );
+    if (!existing) {
+      setEditingId(null);
+      setError("수정할 공고를 찾을 수 없습니다.");
+      return;
+    }
+
+    setError(null);
+    setSuccess(null);
+    setEditingId(editId);
+    setTitle(String(existing.title || ""));
+    setDuration(String(existing.duration || ""));
+    setDeadline(String(existing.deadline || ""));
+    setRoles(
+      Array.isArray(existing.roles) ? existing.roles.filter(Boolean).join(", ") : ""
+    );
+    setCriteria(String(existing.criteria || ""));
+    setDescription(String(existing.description || ""));
+    setEditingStatus(String(existing.status || "모집중"));
+    setEditingCreatedAt(existing.createdAt || null);
+  }, [editId, auth.user?.email, editingId]);
 
   const validate = () => {
     if (!title.trim()) return "프로젝트명을 입력하세요.";
@@ -30,6 +79,7 @@ export default function PostNotice() {
       return;
     }
 
+    const isEditing = Boolean(editId);
     const ownerEmail = auth.user?.email || "";
     const lab = auth.user?.labName || "";
     if (!ownerEmail || !lab) {
@@ -37,14 +87,19 @@ export default function PostNotice() {
       return;
     }
 
+    if (isEditing && !editingId) {
+      setError("수정할 공고를 찾을 수 없습니다.");
+      return;
+    }
+
     const payload = {
-      id: `NL-${Date.now().toString().slice(-6)}`,
+      id: isEditing ? editId : `NL-${Date.now().toString().slice(-6)}`,
       title,
       duration,
       roles: roles.split(",").map((r) => r.trim()).filter(Boolean),
       criteria,
       description,
-      status: "모집중",
+      status: isEditing ? editingStatus : "모집중",
       deadline,
     };
 
@@ -57,10 +112,17 @@ export default function PostNotice() {
       deadline: payload.deadline,
       status: payload.status,
       criteria: payload.criteria,
+      roles: payload.roles,
       lab,
       ownerEmail,
-      createdAt: new Date().toISOString(),
+      createdAt: isEditing && editingCreatedAt ? editingCreatedAt : new Date().toISOString(),
     });
+
+    if (isEditing) {
+      setSuccess("공고가 수정되었습니다.");
+      setTimeout(() => navigate(`/notices/${payload.id}`), 800);
+      return;
+    }
 
     try {
       const res = await fetch("/api/post-notice", {
@@ -84,7 +146,9 @@ export default function PostNotice() {
   return (
     <section className="bg-white py-12">
       <div className="mx-auto max-w-4xl px-6">
-        <h1 className="text-2xl font-semibold text-navy">공고 등록</h1>
+        <h1 className="text-2xl font-semibold text-navy">
+          {editingId ? "공고 수정" : "공고 등록"}
+        </h1>
         <p className="mt-2 text-sm text-navy/70">연구실 전용 공고 등록 폼입니다. 필요한 항목을 입력 후 등록하세요.</p>
 
         <form onSubmit={submit} className="mt-6 grid gap-4">
@@ -129,7 +193,9 @@ export default function PostNotice() {
           {success && <p className="text-sm text-green-600">{success}</p>}
 
           <div className="flex items-center gap-3">
-            <button type="submit" className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-2 text-sm font-semibold text-white hover:bg-[#1557D6]">등록</button>
+            <button type="submit" className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-2 text-sm font-semibold text-white hover:bg-[#1557D6]">
+              {editingId ? "수정" : "등록"}
+            </button>
             <button type="button" onClick={() => { setTitle(""); setDuration(""); setDeadline(""); setRoles(""); setCriteria(""); setDescription(""); }} className="inline-flex items-center gap-2 rounded-full border border-navy/10 px-4 py-2 text-sm font-semibold text-navy/70">초기화</button>
           </div>
         </form>

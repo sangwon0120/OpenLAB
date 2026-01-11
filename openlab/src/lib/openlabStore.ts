@@ -8,6 +8,7 @@ export type PostedNotice = {
   status: string;
   description: string;
   criteria?: string;
+  roles?: string[];
   createdAt: string;
 };
 

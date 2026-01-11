@@ -240,6 +240,13 @@ export default function Notices() {
                             </button>
                           </div>
 
+                          <Link
+                            to={`/post?edit=${notice.id}`}
+                            className="w-full rounded-full border border-navy/10 bg-white px-2.5 py-0.5 text-center text-xs font-semibold text-navy/70 hover:bg-slate"
+                          >
+                            Edit
+                          </Link>
+
                           <button
                             type="button"
                             className="w-full rounded-full border border-red-200 bg-red-50 px-2.5 py-0.5 text-xs font-semibold text-red-600 hover:bg-red-100"
