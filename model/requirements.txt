@@ -1,0 +1,25 @@
+# UI
+streamlit
+
+# LlamaIndex core + integrations
+llama-index
+llama-index-llms-openai
+llama-index-llms-ollama
+llama-index-embeddings-huggingface
+llama-index-readers-wikipedia
+
+# LLMs
+openai
+transformers
+sentence-transformers
+torch
+
+# Web scraping / automation
+beautifulsoup4
+selenium
+webdriver-manager
+
+# Misc
+ipython
+narwhals
+certifi
