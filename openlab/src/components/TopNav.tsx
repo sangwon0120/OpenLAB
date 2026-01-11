@@ -49,19 +49,19 @@ export default function TopNav() {
 
   return (
     <div className="bg-white">
-      <div className="mx-auto flex max-w-6xl flex-col items-start gap-4 px-6 py-5 md:flex-row md:flex-nowrap md:items-center md:gap-6">
-        <Link className="flex items-center" to="/">
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-start gap-4 px-8 py-5 md:flex-row md:flex-nowrap md:items-center md:justify-between md:gap-6">
+        <Link className="flex items-center md:flex-shrink-0" to="/">
           <div className="space-y-1">
             <p className="text-2xl font-extrabold tracking-[0.1em] text-accent">
               OpenLAB
             </p>
-            <p className="flex items-center gap-2 text-xs text-navy/60">
+            <p className="flex items-center gap-2 whitespace-nowrap text-xs text-navy/60">
               <Sparkles className="h-3.5 w-3.5 text-accent" />
               Unbundling of Research
             </p>
           </div>
         </Link>
-        <nav className="flex flex-wrap items-center gap-2 text-sm font-semibold md:flex-nowrap md:gap-3 md:pr-10">
+        <nav className="flex flex-wrap items-center gap-2 text-sm font-semibold md:flex-1 md:justify-center md:gap-3">
           {navItems.map((item) => (
             <NavLink
               key={item.to}
@@ -78,7 +78,7 @@ export default function TopNav() {
             </NavLink>
           ))}
         </nav>
-        <div className="flex flex-col gap-2 text-sm font-semibold text-navy/70 md:ml-auto md:items-end md:pr-2 md:self-center">
+        <div className="flex flex-col gap-2 text-sm font-semibold text-navy/70 md:flex-shrink-0 md:items-end md:self-center">
           <div className="flex items-center gap-3 md:gap-4">
             {auth.isLoggedIn ? (
               <Link to="/mypage" className="inline-flex items-center gap-3 rounded-full px-2 py-1 hover:opacity-90">
