@@ -50,15 +50,13 @@ export default function TopNav() {
   return (
     <div className="bg-white">
       <div className="mx-auto flex w-full max-w-7xl flex-col items-start gap-4 px-8 py-5 md:flex-row md:flex-nowrap md:items-center md:justify-between md:gap-6">
-        <Link className="flex items-center md:flex-shrink-0" to="/">
+        <Link className="flex items-center gap-3 md:flex-shrink-0" to="/">
+          <Sparkles className="h-7 w-7 text-accent" />
           <div className="space-y-1">
-            <p className="text-2xl font-extrabold tracking-[0.1em] text-accent">
+            <p className="text-2xl font-extrabold tracking-[0.05em] text-accent">
               OpenLAB
             </p>
-            <p className="flex items-center gap-2 whitespace-nowrap text-xs text-navy/60">
-              <Sparkles className="h-3.5 w-3.5 text-accent" />
-              Unbundling of Research
-            </p>
+            <p className="whitespace-nowrap text-xs text-navy/60">Unbundling of Research</p>
           </div>
         </Link>
         <nav className="flex flex-wrap items-center gap-2 text-sm font-semibold md:flex-1 md:justify-center md:gap-3">
