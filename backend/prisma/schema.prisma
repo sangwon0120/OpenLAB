@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  role         String   @default("student")
+  labName      String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  notices      Notice[] @relation("NoticeOwner")
+}
+
+model Notice {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  duration    String?
+  deadline    String?
+  status      String   @default("모집중")
+  criteria    String?
+  roles       Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  ownerId     String
+  owner       User     @relation("NoticeOwner", fields: [ownerId], references: [id])
+}

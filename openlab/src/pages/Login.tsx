@@ -1,11 +1,10 @@
 ﻿import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FlaskConical, Lock, Mail, User } from "lucide-react";
 
 type Role = "student" | "lab";
 
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [role, setRole] = useState<Role>("student");
@@ -13,6 +12,8 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [labName, setLabName] = useState("");
   const [school, setSchool] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -21,7 +22,9 @@ export default function Login() {
   const MASTER_EMAIL = "openlab@naver.com";
   const MASTER_PASSWORD = "1234";
 
-  const onSubmit = (e: React.FormEvent) => {
+  const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:4000";
+
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const em = email.trim().toLowerCase();
 
@@ -32,17 +35,39 @@ export default function Login() {
       return;
     }
 
-    if (role === "lab" && !labName) {
-      alert("연구실명은 필수입니다.");
+    if (!em || !password) {
+      setError("Email and password are required.");
       return;
     }
 
-    // mock auth
-    login(role, { email: em, name: role === "student" ? school : undefined, labName: role === "lab" ? labName : undefined });
-    if (role === "lab") navigate("/post");
-    else navigate("/");
-  };
+    setError(null);
+    setLoading(true);
+    try {
+      const res = await fetch(`${API_BASE}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: em, password }),
+      });
+      const j = await res.json();
+      if (!res.ok || !j?.success) {
+        throw new Error(j?.error || "Login failed.");
+      }
 
+      const nextRole = (j.user?.role || role) as Role;
+      login(nextRole, {
+        email: j.user?.email || em,
+        name: j.user?.name || undefined,
+        labName: j.user?.labName || undefined,
+      });
+
+      if (nextRole === "lab") navigate("/post");
+      else navigate("/");
+    } catch (err: any) {
+      setError(err?.message || "Login failed.");
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <section className="bg-slate py-16">
       <div className="mx-auto flex max-w-5xl flex-col gap-10 px-6">
@@ -121,7 +146,6 @@ export default function Login() {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    required
                   />
                 </div>
               </label>
@@ -134,7 +158,6 @@ export default function Login() {
                     type="text"
                     value={labName}
                     onChange={(e) => setLabName(e.target.value)}
-                    required
                   />
                 </label>
               ) : (
@@ -146,11 +169,12 @@ export default function Login() {
                     type="text"
                     value={school}
                     onChange={(e) => setSchool(e.target.value)}
-                    required
                   />
                 </label>
               )}
             </div>
+
+            {error && <p className="mt-4 text-sm text-red-500">{error}</p>}
 
             <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
               <button className="rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white shadow-glow transition hover:-translate-y-0.5 hover:bg-[#1557D6]" type="submit">

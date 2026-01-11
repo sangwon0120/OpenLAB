@@ -1,11 +1,69 @@
 ﻿import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FlaskConical, Lock, Mail, User } from "lucide-react";
 
 type Role = "student" | "lab";
 
 export default function Signup() {
   const [role, setRole] = useState<Role>("student");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [labName, setLabName] = useState("");
+  const [labManager, setLabManager] = useState("");
+  const [labEmail, setLabEmail] = useState("");
+  const [school, setSchool] = useState("");
+  const [major, setMajor] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:4000";
+
+  const onSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setError(null);
+
+    const em = email.trim().toLowerCase();
+    if (!em || !password) {
+      setError("Email and password are required.");
+      return;
+    }
+    if (password !== passwordConfirm) {
+      setError("Passwords do not match.");
+      return;
+    }
+    if (role === "lab" && !labName.trim()) {
+      setError("Lab name is required.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const res = await fetch(`${API_BASE}/auth/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: em,
+          password,
+          name: name.trim() || undefined,
+          role,
+          labName: role === "lab" ? labName.trim() : undefined,
+        }),
+      });
+      const j = await res.json();
+      if (!res.ok || !j?.success) {
+        throw new Error(j?.error || "Sign up failed.");
+      }
+
+      navigate("/login");
+    } catch (err: any) {
+      setError(err?.message || "Sign up failed.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <section className="bg-slate py-16">
@@ -58,105 +116,133 @@ export default function Signup() {
 
           <form
             className="rounded-3xl border border-navy/10 bg-white p-6 shadow-sm"
-            onSubmit={(event) => event.preventDefault()}
+            onSubmit={onSubmit}
           >
             <div className="space-y-4">
               <label className="block text-sm font-semibold text-navy">
-                이름
+                Name
                 <div className="mt-2 flex items-center gap-2 rounded-2xl border border-navy/10 px-4 py-3">
                   <User className="h-4 w-4 text-accent" />
                   <input
                     className="w-full text-sm text-navy outline-none placeholder:text-navy/40"
-                    placeholder="실명 입력"
+                    placeholder="Full name"
                     type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </div>
               </label>
               <label className="block text-sm font-semibold text-navy">
-                이메일
+                Email
                 <div className="mt-2 flex items-center gap-2 rounded-2xl border border-navy/10 px-4 py-3">
                   <Mail className="h-4 w-4 text-accent" />
                   <input
                     className="w-full text-sm text-navy outline-none placeholder:text-navy/40"
                     placeholder="name@openlab.io"
                     type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
                   />
                 </div>
               </label>
               <label className="block text-sm font-semibold text-navy">
-                비밀번호
+                Password
                 <div className="mt-2 flex items-center gap-2 rounded-2xl border border-navy/10 px-4 py-3">
                   <Lock className="h-4 w-4 text-accent" />
                   <input
                     className="w-full text-sm text-navy outline-none placeholder:text-navy/40"
-                    placeholder="비밀번호 입력"
+                    placeholder="Enter password"
                     type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
                   />
                 </div>
               </label>
               <label className="block text-sm font-semibold text-navy">
-                비밀번호 확인
+                Confirm Password
                 <input
                   className="mt-2 w-full rounded-2xl border border-navy/10 px-4 py-3 text-sm text-navy outline-none placeholder:text-navy/40"
-                  placeholder="비밀번호 재입력"
+                  placeholder="Re-enter password"
                   type="password"
+                  value={passwordConfirm}
+                  onChange={(e) => setPasswordConfirm(e.target.value)}
+                  required
                 />
               </label>
               {role === "lab" ? (
                 <div className="grid gap-4 sm:grid-cols-2">
                   <label className="block text-sm font-semibold text-navy">
-                    연구실명
+                    Lab name
                     <input
                       className="mt-2 w-full rounded-2xl border border-navy/10 px-4 py-3 text-sm text-navy outline-none placeholder:text-navy/40"
-                      placeholder="연구실 이름"
+                      placeholder="Lab name"
                       type="text"
+                      value={labName}
+                      onChange={(e) => setLabName(e.target.value)}
+                      required
                     />
                   </label>
                   <label className="block text-sm font-semibold text-navy">
-                    담당자명
+                    Manager name
                     <input
                       className="mt-2 w-full rounded-2xl border border-navy/10 px-4 py-3 text-sm text-navy outline-none placeholder:text-navy/40"
-                      placeholder="교수/매니저 이름"
+                      placeholder="Professor or manager"
                       type="text"
+                      value={labManager}
+                      onChange={(e) => setLabManager(e.target.value)}
                     />
                   </label>
                   <label className="block text-sm font-semibold text-navy sm:col-span-2">
-                    연구실 공식 이메일
+                    Lab email
                     <input
                       className="mt-2 w-full rounded-2xl border border-navy/10 px-4 py-3 text-sm text-navy outline-none placeholder:text-navy/40"
                       placeholder="lab@university.ac.kr"
                       type="email"
+                      value={labEmail}
+                      onChange={(e) => setLabEmail(e.target.value)}
                     />
                   </label>
                 </div>
               ) : (
                 <div className="grid gap-4 sm:grid-cols-2">
                   <label className="block text-sm font-semibold text-navy">
-                    학교
+                    School
                     <input
                       className="mt-2 w-full rounded-2xl border border-navy/10 px-4 py-3 text-sm text-navy outline-none placeholder:text-navy/40"
                       placeholder="Open University"
                       type="text"
+                      value={school}
+                      onChange={(e) => setSchool(e.target.value)}
                     />
                   </label>
                   <label className="block text-sm font-semibold text-navy">
-                    전공
+                    Major
                     <input
                       className="mt-2 w-full rounded-2xl border border-navy/10 px-4 py-3 text-sm text-navy outline-none placeholder:text-navy/40"
                       placeholder="Data Science"
                       type="text"
+                      value={major}
+                      onChange={(e) => setMajor(e.target.value)}
                     />
                   </label>
                 </div>
               )}
             </div>
 
+            {error && <p className="mt-4 text-sm text-red-500">{error}</p>}
+
             <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
-              <button className="rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white shadow-glow transition hover:-translate-y-0.5 hover:bg-[#1557D6]" type="submit">
-                {role === "lab" ? "Lab 회원가입" : "일반 회원가입"}
+              <button
+                className="rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white shadow-glow transition hover:-translate-y-0.5 hover:bg-[#1557D6]"
+                type="submit"
+                disabled={loading}
+              >
+                {loading ? "Processing..." : role === "lab" ? "Lab sign up" : "Student sign up"}
               </button>
               <Link className="text-sm font-semibold text-accent" to="/login">
-                로그인으로 이동
+                Go to login
               </Link>
             </div>
           </form>
